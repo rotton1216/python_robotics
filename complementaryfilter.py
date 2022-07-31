@@ -20,8 +20,8 @@ samplerate=25600
 
 def lowpass(x, samplerate, fp, fs, gpass, gstop):
     fp = 30   #通過域端周波数[Hz]
-    fs = 95    #阻止域端周波数[Hz]
-    gpass = 5      #通過域端最大損失[dB]
+    fs = 100    #阻止域端周波数[Hz]
+    gpass = 3      #通過域端最大損失[dB]
     gstop = 40      #阻止域端最小損失[dB]  
     fn = samplerate / 2                           #ナイキスト周波数
     wp = fp / fn                                  #ナイキスト周波数で通過域端周波数を正規化
@@ -32,9 +32,9 @@ def lowpass(x, samplerate, fp, fs, gpass, gstop):
     return y                                      #フィルタ後の信号を返す
 
 def highpass(x, samplerate, fp, fs, gpass, gstop):
-    fp = 95       #通過域端周波数[Hz]
+    fp = 100       #通過域端周波数[Hz]
     fs = 30       #阻止域端周波数[Hz]
-    gpass = 5       #通過域端最大損失[dB]
+    gpass = 3       #通過域端最大損失[dB]
     gstop = 40      #阻止域端最小損失[dB]
     fn = samplerate / 2                           #ナイキスト周波数
     wp = fp / fn                                  #ナイキスト周波数で通過域端周波数を正規化
@@ -63,14 +63,14 @@ fp = 30       #通過域端周波数[Hz]
 fs = 100       #阻止域端周波数[Hz]
 gpass = 3       #通過域端最大損失[dB]
 gstop = 40      #阻止域端最小損失[dB]
-data_filt_x=lowpass(m_posi_drift_list_x,times-1,fp,fs,gpass,gstop)
-data_filt_y=lowpass(m_posi_drift_list_y,times-1,fp,fs,gpass,gstop)
+data_filt_x=lowpass(m_posi_offset_list_x,times-1,fp,fs,gpass,gstop)
+data_filt_y=lowpass(m_posi_offset_list_y,times-1,fp,fs,gpass,gstop)
 fp = 100       #通過域端周波数[Hz]
 fs = 30       #阻止域端周波数[Hz]
 gpass = 3       #通過域端最大損失[dB]
 gstop = 40      #阻止域端最小損失[dB]
-data_highpass_x=highpass(m_posi_offset_list_x,times-1,fp,fs,gpass,gstop)
-data_highpass_y=highpass(m_posi_offset_list_x,times-1,fp,fs,gpass,gstop)
+data_highpass_x=highpass(m_posi_drift_list_x,times-1,fp,fs,gpass,gstop)
+data_highpass_y=highpass(m_posi_drift_list_x,times-1,fp,fs,gpass,gstop)
 data_result_x=data_filt_x+data_highpass_x
 data_result_y=data_filt_y+data_highpass_y
 
